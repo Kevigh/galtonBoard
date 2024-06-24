@@ -9,8 +9,6 @@ add_executable(galtonBoard main.cpp
         src/Entities/Particle.cpp
         src/Entities/Particle.h
         src/Logic/Models/Model.h
-        src/Entities/Board.cpp
-        src/Entities/Board.h
         src/Logic/Engine/Engine.cpp
         src/Logic/Engine/Engine.h
         src/Logic/Exporter.cpp
@@ -24,4 +22,6 @@ add_executable(galtonBoard main.cpp
         src/Entities/Mesh.cpp
         src/Entities/Mesh.h
         src/Entities/Cell.cpp
-        src/Entities/Cell.h)
+        src/Entities/Cell.h
+        src/Entities/GaltonProps.h
+        src/Entities/Types.h)

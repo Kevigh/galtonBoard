@@ -6,8 +6,6 @@
 #define MODEL_H
 #include <vector>
 
-#include "../Entities/Particle.h"
-
 
 class Model {
 public:

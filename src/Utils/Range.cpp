@@ -15,11 +15,6 @@ double Range::getMiddle() const
     return (max - min) / 2;
 }
 
-double Range::getRandom()
-{
-    return distribution(gen);
-}
-
 Range::Range(double min, double max)
     : min(min), max(max)
 {}

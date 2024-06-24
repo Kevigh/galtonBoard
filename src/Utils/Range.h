@@ -14,7 +14,6 @@ public:
 
     double getRange() const;
     double getMiddle() const;
-    double getRandom();
 
     Range(double min, double max);
     Range() = default;

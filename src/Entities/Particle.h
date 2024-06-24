@@ -6,6 +6,7 @@
 #define PARTICLE_H
 #include <string>
 
+#include "Types.h"
 #include "../Utils/Vector2D.h"
 
 
@@ -16,9 +17,10 @@ public:
     Vector2D position{};
     Vector2D velocity{};
     Vector2D force{};
-    float radius{};
-    float mass{};
-    float damping{};
+    double radius{};
+    double mass{};
+    double damping{};
+    ParticleType type{};
 
     virtual std::string toString() const;
 };

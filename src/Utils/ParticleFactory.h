@@ -6,13 +6,14 @@
 #define PARTICLEFACTORY_H
 #include <vector>
 
+#include "../Entities/GaltonProps.h"
 #include "../Entities/Particle.h"
 
 
-class ParticleFactory {
-public:
-    std::vector<Particle*> createParticles(int n, float radius, float mass, float damping, Vector2D position, Vector2D velocity, Vector2D force);
-};
+namespace Factory {
+    std::vector<Particle*> createBalls(int nParticles, const BallProps& props);
+    std::vector<Particle*> createPegs(const BoardProps& props);
+}
 
 
 

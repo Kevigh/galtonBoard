@@ -15,6 +15,12 @@ double Random::getRandom(double min, double max)
     return random * (max - min) + min;
 }
 
+double Random::getRandom(Range range)
+{
+    double const random = distribution(gen);
+    return random * (range.max - range.min) + range.min;
+}
+
 Random::Random()
     : gen(rd()), distribution(0, 1)
 {

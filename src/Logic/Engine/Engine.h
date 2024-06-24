@@ -6,10 +6,10 @@
 #define ENGINE_H
 #include <vector>
 
+#include "../../Entities/Particle.h"
+#include "../../Utils/Random.h"
+#include "../../Utils/Range.h"
 #include "../Models/Model.h"
-#include "../Utils/Random.h"
-#include "../Utils/Range.h"
-#include "../Utils/Vector2D.h"
 
 
 class Engine {
@@ -18,7 +18,6 @@ public:
     float damping{};
 
     Vector2D gravity{};
-    Vector2D origin{};
     Range verticalConstrain{};
     Range horizontalConstrain{};
 

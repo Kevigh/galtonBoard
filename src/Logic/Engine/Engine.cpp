@@ -4,6 +4,10 @@
 
 #include "Engine.h"
 
+void Engine::initialize()
+{
+}
+
 void Engine::update() {
 }
 

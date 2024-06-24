@@ -8,11 +8,14 @@
 #include <iostream>
 #include <random>
 
+#include "Range.h"
+
 
 class Random {
 public:
     double getRandom();
     double getRandom(double min, double max);
+    double getRandom(Range range);
 
     Random();
 

@@ -7,14 +7,14 @@
 
 
 
-class Vector {
+class Vector2D {
 public:
     double x{};
     double y{};
 
     double magnitude() const;
     double magnitudeSquared() const;
-    double distance(const Vector &p) const;
+    double distance(const Vector2D &p) const;
 };
 
 

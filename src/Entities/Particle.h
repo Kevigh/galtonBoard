@@ -6,17 +6,19 @@
 #define PARTICLE_H
 #include <string>
 
-#include "../Utils/Vector.h"
+#include "../Utils/Vector2D.h"
 
 
 class Particle {
 public:
     virtual ~Particle() = default;
 
-    Vector position{};
-    Vector velocity{};
+    Vector2D position{};
+    Vector2D velocity{};
+    Vector2D force{};
     float radius{};
     float mass{};
+    float damping{};
 
     virtual std::string toString() const;
 };

@@ -1,0 +1,25 @@
+//
+// Created by Nicolas Aguilera García  on 23/06/24.
+//
+
+#include "Range.h"
+
+
+double Range::getRange() const
+{
+    return max - min;
+}
+
+double Range::getMiddle() const
+{
+    return (max - min) / 2;
+}
+
+double Range::getRandom()
+{
+    return distribution(gen);
+}
+
+Range::Range(double min, double max)
+    : min(min), max(max)
+{}

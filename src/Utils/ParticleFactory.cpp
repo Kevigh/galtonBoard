@@ -34,5 +34,17 @@ std::vector<Particle*> Factory::createPegs(const BoardProps& props)
     auto pegs = std::vector<Particle*>();
     auto random = Random();
 
+    auto* particle = new Particle();
+    particle->position.x = 50;
+    particle->position.y = 50;
+    particle->radius = 5;
+    particle->velocity.x = 0;
+    particle->velocity.y = 0;
+    particle->mass = 10;
+    particle->damping = 1;
+    particle->type = PEG;
+
+    pegs.push_back(particle);
+
     return pegs;
 }

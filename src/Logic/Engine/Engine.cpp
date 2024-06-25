@@ -19,15 +19,30 @@ void Engine::initialize()
         .initialYPosition = {0, 100}
     };
 
+    const BoardProps boardProps = {
+        .numberOfColumns = 10,
+        .numberOfRows = 10,
+        .pegRadius = 1,
+        .verticalSpacing = 1,
+        .horizontalSpacing = 1,
+        .borderDamping = 1,
+        .pegDamping = 1,
+        .type = BoardType::GALTON        
+    };
+
     gravity = Vector2D();
     gravity.y = -9.8;
     gravity.x = 0;
 
     horizontalConstrain = Range(0, 100);
     verticalConstrain = Range(0, 100);
+
     
+    mesh = Mesh();
     model = new BasicModel();
-    balls = Factory::createBalls(10, props);
+    pegs = Factory::createPegs(boardProps);
+    balls = Factory::createBalls(30, props);
+    mesh.createCells(10, 10, 10, 10);
 }
 
 void Engine::run() {
@@ -38,12 +53,13 @@ void Engine::run() {
         for (int i = 0; i < subSteps; i++) {
             applyForces();
             updateBodies(t, dtt);
+            updateMesh();
             validateCollisions();
             validateConstraints();
             t += dtt;
         }
         
-        exporter.addData(balls, horizontalConstrain, verticalConstrain);
+        exporter.addData(balls, pegs, horizontalConstrain, verticalConstrain);
     }
 
     exporter.saveData("/Users/niaggar/Developer/Temporal/GaltonBoardTest/data.txt");
@@ -60,8 +76,62 @@ void Engine::updateBodies(float t, float dtt) const
     }
 }
 
-void Engine::validateCollisions() {
-    
+void Engine::validateCollisions()
+{
+    int rows = mesh.rows;
+    int cols = mesh.cols;
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            Cell* cell = mesh.getCell(i, j);
+            std::vector<Particle*> pegs = cell->pegs;
+            std::vector<Particle*> balls = cell->balls;
+
+            if (i > 0) {
+                std::vector<Particle*> topPegs = mesh.getCell(i - 1, j)->pegs;
+                pegs.insert(pegs.end(), topPegs.begin(), topPegs.end());
+                if (j > 0) {
+                    std::vector<Particle*> topLeftPegs = mesh.getCell(i - 1, j - 1)->pegs;
+                    pegs.insert(pegs.end(), topLeftPegs.begin(), topLeftPegs.end());
+                }
+                if (j < cols - 1) {
+                    std::vector<Particle*> topRightPegs = mesh.getCell(i - 1, j + 1)->pegs;
+                    pegs.insert(pegs.end(), topRightPegs.begin(), topRightPegs.end());
+                }
+            }
+
+            if (j > 0) {
+                std::vector<Particle*> leftPegs = mesh.getCell(i, j - 1)->pegs;
+                pegs.insert(pegs.end(), leftPegs.begin(), leftPegs.end());
+            }
+
+            if (j < cols - 1) {
+                std::vector<Particle*> rightPegs = mesh.getCell(i, j + 1)->pegs;
+                pegs.insert(pegs.end(), rightPegs.begin(), rightPegs.end());
+            }
+
+            if (i < rows - 1) {
+                std::vector<Particle*> bottomPegs = mesh.getCell(i + 1, j)->pegs;
+                pegs.insert(pegs.end(), bottomPegs.begin(), bottomPegs.end());
+                if (j > 0) {
+                    std::vector<Particle*> bottomLeftPegs = mesh.getCell(i + 1, j - 1)->pegs;
+                    pegs.insert(pegs.end(), bottomLeftPegs.begin(), bottomLeftPegs.end());
+                }
+                if (j < cols - 1) {
+                    std::vector<Particle*> bottomRightPegs = mesh.getCell(i + 1, j + 1)->pegs;
+                    pegs.insert(pegs.end(), bottomRightPegs.begin(), bottomRightPegs.end());
+                }
+            }
+
+            for (auto ball : balls) {
+                for (auto peg : pegs) {
+                    if (ball->collidesWith(*peg)) {
+                        model->resolveCollision(*ball, *peg);
+                    }
+                }
+            }
+        }
+    }    
 }
 
 void Engine::validateConstraints()
@@ -93,5 +163,16 @@ void Engine::applyForces() const
 {
     for (auto ball : balls) {
         ball->force = ball->force + gravity * ball->mass;
+    }
+}
+
+void Engine::updateMesh()
+{
+    mesh.clear();
+    for (auto ball : balls) {
+        mesh.addParticle(ball);
+    }
+    for (auto peg : pegs) {
+        mesh.addParticle(peg);
     }
 }

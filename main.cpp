@@ -5,10 +5,10 @@
 int main()
 {
     Engine engine;
-    engine.maxSteps = 600;
+    engine.maxSteps = 1000;
     engine.subSteps = 10;
-    engine.dt = 0.01;
-    engine.damping = 0.99;
+    engine.dt = 0.03;
+    engine.damping = 0.6;
 
     
     engine.initialize();

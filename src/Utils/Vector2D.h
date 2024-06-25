@@ -21,6 +21,7 @@ public:
     Vector2D operator-(const Vector2D &p) const;
     Vector2D operator*(double scalar) const;
     Vector2D operator/(double scalar) const;
+    void normalize();
 
     Vector2D() {}
 };

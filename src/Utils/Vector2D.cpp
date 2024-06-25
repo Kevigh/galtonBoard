@@ -55,3 +55,10 @@ Vector2D Vector2D::operator/(double scalar) const
 
     return result;
 }
+
+void Vector2D::normalize()
+{
+    double mag = magnitude();
+    x /= mag;
+    y /= mag;
+}

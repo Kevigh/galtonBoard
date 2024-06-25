@@ -14,6 +14,7 @@ class Particle {
 public:
     Particle() = default;
     ~Particle() = default;
+    bool collidesWith(const Particle& peg) const;
     Vector2D position{};
     Vector2D velocity{};
     Vector2D force{};

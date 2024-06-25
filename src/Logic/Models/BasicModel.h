@@ -15,6 +15,7 @@ public:
     
     void updateBall(Particle& ball, float dt, float t) const override;
     void updatePeg(Particle& peg, float dt, float t) const override;
+    void resolveCollision(Particle& ball, Particle& peg) override;
 
     BasicModel();
 

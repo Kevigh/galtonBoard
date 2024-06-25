@@ -4,11 +4,15 @@
 
 #ifndef CELL_H
 #define CELL_H
+#include <vector>
 
+#include "Particle.h"
 
 
 class Cell {
-
+public:
+    std::vector<Particle*> balls;
+    std::vector<Particle*> pegs;
 };
 
 

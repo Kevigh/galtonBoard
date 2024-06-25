@@ -13,7 +13,7 @@ class Exporter {
 public:
     std::vector<std::string> exportData{};
 
-    void addData(std::vector<Particle*> particles, Range xWidth, Range yWidth);
+    void addData(std::vector<Particle*> particles, std::vector<Particle*> pegs, Range xWidth, Range yWidth);
     void saveData(std::string filename);
 };
 

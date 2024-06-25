@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "../Exporter.h"
+#include "../../Entities/Mesh.h"
 #include "../../Entities/Particle.h"
 #include "../../Utils/Random.h"
 #include "../../Utils/Range.h"
@@ -31,6 +32,7 @@ public:
     Model* model;
     Random random{};
     Exporter exporter{};
+    Mesh mesh{};
 
     void initialize();
     void run();
@@ -39,6 +41,7 @@ public:
     void validateCollisions();
     void validateConstraints();
     void applyForces() const;
+    void updateMesh();
 
     Engine() = default;
 };

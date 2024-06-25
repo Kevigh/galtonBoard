@@ -8,12 +8,15 @@
 #include <iostream>
 
 
-void Exporter::addData(std::vector<Particle*> particles, Range xWidth, Range yWidth)
+void Exporter::addData(std::vector<Particle*> particles, std::vector<Particle*> pegs, Range xWidth, Range yWidth)
 {
-    int totalParticles = particles.size();
+    int totalBalls = particles.size();
+    int totalPegs = pegs.size();
+    int totalBorders = 4;
+    int totalParticles = totalBalls + totalPegs + totalBorders;
     std::string data = "";
 
-    data += std::to_string(totalParticles + 4) + "\n";
+    data += std::to_string(totalParticles) + "\n";
     data += "aver\n";
 
     int i = 0;
@@ -22,14 +25,19 @@ void Exporter::addData(std::vector<Particle*> particles, Range xWidth, Range yWi
         i++;
     }
 
+    for (auto peg : pegs) {
+        data += std::to_string(i) + " " + "2" + " " + std::to_string(peg->position.x) + " " + std::to_string(peg->position.y) + " " + std::to_string(peg->radius) + "\n";
+        i++;
+    }
+
     // Add one ball on each corner
-    data += std::to_string(i) + " " + "1" + " " + std::to_string(xWidth.min) + " " + std::to_string(yWidth.min) + " " + "1" + "\n";
+    data += std::to_string(i) + " " + "3" + " " + std::to_string(xWidth.min) + " " + std::to_string(yWidth.min) + " " + "1" + "\n";
     i++;
-    data += std::to_string(i) + " " + "1" + " " + std::to_string(xWidth.min) + " " + std::to_string(yWidth.max) + " " + "1" + "\n";
+    data += std::to_string(i) + " " + "3" + " " + std::to_string(xWidth.min) + " " + std::to_string(yWidth.max) + " " + "1" + "\n";
     i++;
-    data += std::to_string(i) + " " + "1" + " " + std::to_string(xWidth.max) + " " + std::to_string(yWidth.min) + " " + "1" + "\n";
+    data += std::to_string(i) + " " + "3" + " " + std::to_string(xWidth.max) + " " + std::to_string(yWidth.min) + " " + "1" + "\n";
     i++;
-    data += std::to_string(i) + " " + "1" + " " + std::to_string(xWidth.max) + " " + std::to_string(yWidth.max) + " " + "1" + "\n";
+    data += std::to_string(i) + " " + "3" + " " + std::to_string(xWidth.max) + " " + std::to_string(yWidth.max) + " " + "1" + "\n";
 
     exportData.push_back(data);
 }

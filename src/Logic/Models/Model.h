@@ -15,6 +15,7 @@ public:
 
     virtual void updateBall(Particle& ball, float dt, float t) const = 0;
     virtual void updatePeg(Particle& pegs, float dt, float t) const = 0;
+    virtual void resolveCollision(Particle& ball, Particle& peg) = 0;
 };
 
 

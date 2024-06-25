@@ -12,8 +12,8 @@
 
 class Particle {
 public:
-    virtual ~Particle() = default;
-
+    Particle() = default;
+    ~Particle() = default;
     Vector2D position{};
     Vector2D velocity{};
     Vector2D force{};

@@ -34,5 +34,5 @@ std::vector<Particle*> Factory::createPegs(const BoardProps& props)
     auto pegs = std::vector<Particle*>();
     auto random = Random();
 
-    
+    return pegs;
 }

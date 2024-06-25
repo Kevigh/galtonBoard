@@ -4,6 +4,7 @@
 
 #ifndef TYPES_H
 #define TYPES_H
+#include "../Utils/Vector2D.h"
 
 enum ParticleType {
     BALL,
@@ -13,6 +14,12 @@ enum ParticleType {
 enum BoardType {
     GALTON,
     CUSTOM
+};
+
+struct RungeState
+{
+    Vector2D* position;
+    Vector2D* velocity;
 };
 
 #endif //TYPES_H

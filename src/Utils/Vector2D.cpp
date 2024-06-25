@@ -19,3 +19,39 @@ double Vector2D::distance(const Vector2D &p) const {
 
     return sqrt(dx * dx + dy * dy);
 }
+
+Vector2D Vector2D::operator+(const Vector2D& p) const
+{
+    auto result = Vector2D{};
+    result.x = x + p.x;
+    result.y = y + p.y;
+
+    return result;
+}
+
+Vector2D Vector2D::operator-(const Vector2D& p) const
+{
+    auto result = Vector2D{};
+    result.x = x - p.x;
+    result.y = y - p.y;
+
+    return result;
+}
+
+Vector2D Vector2D::operator*(double scalar) const
+{
+    auto result = Vector2D{};
+    result.x = x * scalar;
+    result.y = y * scalar;
+
+    return result;
+}
+
+Vector2D Vector2D::operator/(double scalar) const
+{
+    auto result = Vector2D{};
+    result.x = x / scalar;
+    result.y = y / scalar;
+
+    return result;
+}

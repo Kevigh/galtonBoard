@@ -4,13 +4,17 @@
 
 #ifndef EXPORTER_H
 #define EXPORTER_H
+#include <vector>
 
-
+#include "../Entities/Particle.h"
+#include "../Utils/Range.h"
 
 class Exporter {
 public:
+    std::vector<std::string> exportData{};
 
-
+    void addData(std::vector<Particle*> particles, Range xWidth, Range yWidth);
+    void saveData(std::string filename);
 };
 
 

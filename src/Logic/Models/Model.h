@@ -5,15 +5,16 @@
 #ifndef MODEL_H
 #define MODEL_H
 #include <vector>
+#include "../../Entities/Particle.h"
 
 
 class Model {
 public:
     Model() = default;
-    virtual ~Model() = default;
+    ~Model() = default;
 
-    virtual void updateBalls(std::vector<Particle>* balls, float dt) = 0;
-    virtual void updatePegs(std::vector<Particle>* pegs, float dt) = 0;
+    virtual void updateBall(Particle& ball, float dt, float t) const = 0;
+    virtual void updatePeg(Particle& pegs, float dt, float t) const = 0;
 };
 
 

@@ -24,4 +24,8 @@ add_executable(galtonBoard main.cpp
         src/Entities/Cell.cpp
         src/Entities/Cell.h
         src/Entities/GaltonProps.h
-        src/Entities/Types.h)
+        src/Entities/Types.h
+        src/Logic/Models/BasicModel.cpp
+        src/Logic/Models/BasicModel.h
+        src/Logic/RungeKutta.cpp
+        src/Logic/RungeKutta.h)

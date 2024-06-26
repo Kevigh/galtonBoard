@@ -11,8 +11,8 @@
 
 class Cell {
 public:
-    std::vector<Particle*> balls;
-    std::vector<Particle*> pegs;
+    std::vector<Particle*> balls{};
+    std::vector<Particle*> pegs{};
 };
 
 

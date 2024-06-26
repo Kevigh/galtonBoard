@@ -15,8 +15,14 @@ void Mesh::addParticle(Particle* particle) const
     const double x = particle->position.x;
     const double y = particle->position.y;
 
-    const int row = std::floor(y / height);
-    const int col = std::floor(x / width);
+    int row = std::floor(y / height);
+    if (row >= rows) {
+        row = rows - 1;
+    }
+    int col = std::floor(x / width);
+    if (col >= cols) {
+        col = cols - 1;
+    }
     Cell* cell = getCell(row, col);
 
     if (particle->type == BALL) {

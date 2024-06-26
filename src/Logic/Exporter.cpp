@@ -55,3 +55,27 @@ void Exporter::saveData(std::string filename)
 
     outFile.close();
 }
+
+void Exporter::saveHistogram(const std::vector<Particle*>& particles, const std::string& filename, int bins, Range xRange)
+{
+    double binWidth = (xRange.max - xRange.min) / bins;
+    std::vector<int> histogram(bins, 0);
+
+    for (auto particle : particles) {
+        int bin = std::floor((particle->position.x - xRange.min) / binWidth);
+        if (bin >= 0 && bin < bins) {
+            histogram[bin]++;
+        }
+    }
+
+    std::ofstream outFile(filename);
+    if (!outFile.is_open()) {
+        throw std::runtime_error("Could not open file for writing");
+    }
+
+    for (int i = 0; i < bins; i++) {
+        outFile << i  << "\t" << histogram[i] << "\n";
+    }
+
+    outFile.close();
+}

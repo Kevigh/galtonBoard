@@ -9,24 +9,28 @@
 
 void Engine::initialize()
 {
-    const BallProps props = {
-        .radius = {1, 2},
+    const double pegRadius = 10;
+    const int columns = 13;
+    const int rows = 10;
+    
+    ballProps = {
+        .radius = {pegRadius/5, pegRadius/5},
         .mass = 1,
         .damping = 1,
-        .initialXVelocity = {-10, 10},
-        .initialYVelocity = {-10, 10},
-        .initialXPosition = {0, 100},
-        .initialYPosition = {0, 100}
+        .initialXVelocity = {-1, 1},
+        .initialYVelocity = {-5, 0},
+        .initialXPosition = {(pegRadius * 4 * columns) / 2 - pegRadius / 2, (pegRadius * 4 * columns) / 2 + pegRadius / 2},
+        .initialYPosition = {pegRadius * 2 * rows, pegRadius * 2 * rows}
     };
 
-    const BoardProps boardProps = {
-        .numberOfColumns = 10,
-        .numberOfRows = 10,
-        .pegRadius = 1,
-        .verticalSpacing = 1,
-        .horizontalSpacing = 1,
-        .borderDamping = 1,
-        .pegDamping = 1,
+    boardProps = {
+        .numberOfColumns = columns,
+        .numberOfRows = rows,
+        .pegRadius = pegRadius,
+        .verticalSpacing = pegRadius * 2,
+        .horizontalSpacing = pegRadius * 4,
+        .borderDamping = 0.5,
+        .pegDamping = 0.5,
         .type = BoardType::GALTON        
     };
 
@@ -34,14 +38,13 @@ void Engine::initialize()
     gravity.y = -9.8;
     gravity.x = 0;
 
-    horizontalConstrain = Range(0, 100);
-    verticalConstrain = Range(0, 100);
-
+    horizontalConstrain = Range(0, pegRadius * 4 * columns);
+    verticalConstrain = Range(0, pegRadius * 2 * rows);
     
     mesh = Mesh();
     model = new BasicModel();
     pegs = Factory::createPegs(boardProps);
-    balls = Factory::createBalls(30, props);
+    balls = Factory::createBalls(2500, ballProps);
     mesh.createCells(10, 10, 10, 10);
 }
 
@@ -51,6 +54,10 @@ void Engine::run() {
     
     for (step = 0; step < maxSteps; step++) {
         for (int i = 0; i < subSteps; i++) {
+            if (stop) {
+                break;
+            }
+            
             applyForces();
             updateBodies(t, dtt);
             updateMesh();
@@ -63,11 +70,16 @@ void Engine::run() {
     }
 
     exporter.saveData("/Users/niaggar/Developer/Temporal/GaltonBoardTest/data.txt");
+    exporter.saveHistogram(balls, "/Users/niaggar/Developer/Temporal/GaltonBoardTest/histogram.txt", boardProps.numberOfColumns, horizontalConstrain);
 }
 
 void Engine::updateBodies(float t, float dtt) const
 {
     for (auto ball : balls) {
+        if (ball->isStopped) {
+            continue;
+        }
+        
         model->updateBall(*ball, dtt, t);
     }
     
@@ -124,6 +136,10 @@ void Engine::validateCollisions()
             }
 
             for (auto ball : balls) {
+                if (ball->isStopped) {
+                    continue;
+                }
+                
                 for (auto peg : pegs) {
                     if (ball->collidesWith(*peg)) {
                         model->resolveCollision(*ball, *peg);
@@ -150,6 +166,7 @@ void Engine::validateConstraints()
         if (ball->position.y - ball->radius < verticalConstrain.min) {
             ball->position.y = verticalConstrain.min + ball->radius;
             ball->velocity.y = -ball->velocity.y * damping;
+            ball->isStopped = true;
         }
         
         if (ball->position.y + ball->radius > verticalConstrain.max) {
@@ -174,5 +191,20 @@ void Engine::updateMesh()
     }
     for (auto peg : pegs) {
         mesh.addParticle(peg);
+    }
+}
+
+void Engine::validateStop()
+{
+    int stopped = 0;
+    for (auto ball : balls) {
+        if (ball->isStopped) {
+            stopped++;
+        }
+    }
+
+    if (stopped == balls.size()) {
+        std::cout << "All balls stopped" << std::endl;
+        stop = true;
     }
 }

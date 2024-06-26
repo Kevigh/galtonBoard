@@ -14,15 +14,16 @@ class Particle {
 public:
     Particle() = default;
     ~Particle() = default;
-    bool collidesWith(const Particle& peg) const;
     Vector2D position{};
     Vector2D velocity{};
     Vector2D force{};
     double radius{};
     double mass{};
     double damping{};
+    bool isStopped{};
     ParticleType type{};
 
+    bool collidesWith(const Particle& peg) const;
     virtual std::string toString() const;
 };
 

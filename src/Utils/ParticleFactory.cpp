@@ -32,19 +32,26 @@ std::vector<Particle*> Factory::createBalls(const int nParticles, const BallProp
 std::vector<Particle*> Factory::createPegs(const BoardProps& props)
 {
     auto pegs = std::vector<Particle*>();
-    auto random = Random();
+    
+    for (int i = 0; i < props.numberOfRows; i++) {
+        for (int j = 0; j < props.numberOfColumns; j++) {
+            auto peg = new Particle();
+            auto x = j * props.horizontalSpacing;
+            auto y = i * props.verticalSpacing;
 
-    auto* particle = new Particle();
-    particle->position.x = 50;
-    particle->position.y = 50;
-    particle->radius = 5;
-    particle->velocity.x = 0;
-    particle->velocity.y = 0;
-    particle->mass = 10;
-    particle->damping = 1;
-    particle->type = PEG;
+            if (i % 2 != 0) {
+                x += props.horizontalSpacing / 2;
+            }
 
-    pegs.push_back(particle);
+            peg->damping = props.pegDamping;
+            peg->position.x = x;
+            peg->position.y = y;
+            peg->radius = props.pegRadius;
+            peg->type = PEG;
+
+            pegs.push_back(peg);
+        }
+    }
 
     return pegs;
 }

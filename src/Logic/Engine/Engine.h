@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "../Exporter.h"
+#include "../../Entities/GaltonProps.h"
 #include "../../Entities/Mesh.h"
 #include "../../Entities/Particle.h"
 #include "../../Utils/Random.h"
@@ -16,6 +17,7 @@
 
 class Engine {
 public:
+    bool stop{};
     float dt{};
     float damping{};
     int step{};
@@ -25,6 +27,9 @@ public:
     Vector2D gravity{};
     Range verticalConstrain{};
     Range horizontalConstrain{};
+
+    BoardProps boardProps{};
+    BallProps ballProps{};
 
     std::vector<Particle*> balls{};
     std::vector<Particle*> pegs{};
@@ -42,6 +47,7 @@ public:
     void validateConstraints();
     void applyForces() const;
     void updateMesh();
+    void validateStop();
 
     Engine() = default;
 };

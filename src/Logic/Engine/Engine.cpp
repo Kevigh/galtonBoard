@@ -26,7 +26,7 @@ void Engine::initialize()
     boardProps = {
         .numberOfColumns = columns,
         .numberOfRows = rows,
-        .pegRadius = pegRadius,
+        .pegRadius = pegRadius / 1.3,
         .verticalSpacing = pegRadius * 2,
         .horizontalSpacing = pegRadius * 4,
         .borderDamping = 0.5,
@@ -37,15 +37,29 @@ void Engine::initialize()
     gravity = Vector2D();
     gravity.y = -9.8;
     gravity.x = 0;
+    maxSteps = 300;
 
     horizontalConstrain = Range(0, pegRadius * 4 * columns);
     verticalConstrain = Range(0, pegRadius * 2 * rows);
+
+    std::vector<double> columnsPositions;
     
     mesh = Mesh();
     model = new BasicModel();
-    pegs = Factory::createPegs(boardProps);
-    balls = Factory::createBalls(2500, ballProps);
+    pegs = Factory::createPegsSize(0.1, boardProps, horizontalConstrain, verticalConstrain, columnsPositions);
+    // pegs = Factory::createPegs(0.5, boardProps, horizontalConstrain, verticalConstrain, columnsPositions);
+
+
+    // get the middle of the board
+    std::cout << "Number of columns" << columnsPositions.size() << std::endl;
+    double middle = columnsPositions[columnsPositions.size() / 2];
+    ballProps.initialXPosition = {middle, middle};
+    ballProps.initialYPosition = {verticalConstrain.max, verticalConstrain.max};
+    
+    balls = Factory::createBalls(100, ballProps);
     mesh.createCells(10, 10, 10, 10);
+
+    
 }
 
 void Engine::run() {

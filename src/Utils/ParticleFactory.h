@@ -12,7 +12,8 @@
 
 namespace Factory {
     std::vector<Particle*> createBalls(int nParticles, const BallProps& props);
-    std::vector<Particle*> createPegs(const BoardProps& props);
+    std::vector<Particle*> createPegs(const double delta, const BoardProps& props, Range& horizontalConstrain, Range& verticalConstraint, std::vector<double>& columnsPositions);
+    std::vector<Particle*> createPegsSize(const double delta, const BoardProps& props, Range& horizontalConstrain, Range& verticalConstraint, std::vector<double>& columnsPositions);
 }
 
 

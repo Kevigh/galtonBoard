@@ -29,9 +29,53 @@ std::vector<Particle*> Factory::createBalls(const int nParticles, const BallProp
     return particles;
 }
 
-std::vector<Particle*> Factory::createPegs(const BoardProps& props)
+std::vector<Particle*> Factory::createPegs(const double delta, const BoardProps& props, Range& horizontalConstrain, Range& verticalConstrain, std::vector<double>& columnsPositions)
 {
     auto pegs = std::vector<Particle*>();
+    auto width = 0.0;
+    auto height = 0.0;
+    auto columnsPositionsInt = std::vector<double>();
+    
+    for (int i = 0; i < props.numberOfRows; i++) {
+        for (int j = 0; j < props.numberOfColumns; j++) {
+            auto peg = new Particle();
+            auto x = j * props.horizontalSpacing - j * j * delta;
+            auto y = i * props.verticalSpacing;
+
+            if (i % 2 != 0) {
+                x += props.horizontalSpacing / 2;
+            }
+
+            peg->damping = props.pegDamping;
+            peg->position.x = x;
+            peg->position.y = y;
+            peg->radius = props.pegRadius;
+            peg->type = PEG;
+
+            pegs.push_back(peg);
+
+            width = x;
+            height = y;
+
+            if (i == props.numberOfRows - 1) {
+                columnsPositionsInt.push_back(x);
+            }
+        }
+    }
+
+    horizontalConstrain = Range(0, width);
+    verticalConstrain = Range(0, height + props.pegRadius * 2);
+    columnsPositions = columnsPositionsInt;
+
+    return pegs;
+}
+
+std::vector<Particle*> Factory::createPegsSize(const double delta, const BoardProps& props, Range& horizontalConstrain, Range& verticalConstrain, std::vector<double>& columnsPositions)
+{
+    auto pegs = std::vector<Particle*>();
+    auto width = 0.0;
+    auto height = 0.0;
+    auto columnsPositionsInt = std::vector<double>();
     
     for (int i = 0; i < props.numberOfRows; i++) {
         for (int j = 0; j < props.numberOfColumns; j++) {
@@ -46,12 +90,25 @@ std::vector<Particle*> Factory::createPegs(const BoardProps& props)
             peg->damping = props.pegDamping;
             peg->position.x = x;
             peg->position.y = y;
-            peg->radius = props.pegRadius;
+            peg->radius = props.pegRadius + (j * j * delta);
             peg->type = PEG;
 
             pegs.push_back(peg);
+
+            width = x;
+            height = y;
+
+            if (i == props.numberOfRows - 1) {
+                columnsPositionsInt.push_back(x);
+            }
         }
     }
 
+    horizontalConstrain = Range(0, width);
+    verticalConstrain = Range(0, height + props.pegRadius * 2);
+    columnsPositions = columnsPositionsInt;
+
     return pegs;
 }
+
+

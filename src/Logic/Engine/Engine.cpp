@@ -37,7 +37,7 @@ void Engine::initialize()
     gravity = Vector2D();
     gravity.y = -9.8;
     gravity.x = 0;
-    maxSteps = 300;
+    maxSteps = 4000;
 
     horizontalConstrain = Range(0, pegRadius * 4 * columns);
     verticalConstrain = Range(0, pegRadius * 2 * rows);
@@ -46,8 +46,8 @@ void Engine::initialize()
     
     mesh = Mesh();
     model = new BasicModel();
-    pegs = Factory::createPegsSize(0.1, boardProps, horizontalConstrain, verticalConstrain, columnsPositions);
-    // pegs = Factory::createPegs(0.5, boardProps, horizontalConstrain, verticalConstrain, columnsPositions);
+    // pegs = Factory::createPegsSize(0.1, boardProps, horizontalConstrain, verticalConstrain, columnsPositions);
+    pegs = Factory::createPegs(1.0, boardProps, horizontalConstrain, verticalConstrain, columnsPositions);
 
 
     // get the middle of the board
@@ -56,10 +56,8 @@ void Engine::initialize()
     ballProps.initialXPosition = {middle, middle};
     ballProps.initialYPosition = {verticalConstrain.max, verticalConstrain.max};
     
-    balls = Factory::createBalls(100, ballProps);
+    balls = Factory::createBalls(2500, ballProps);
     mesh.createCells(10, 10, 10, 10);
-
-    
 }
 
 void Engine::run() {

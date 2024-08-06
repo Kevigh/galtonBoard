@@ -91,6 +91,7 @@ std::vector<Particle*> Factory::createPegsSize(const double delta, const BoardPr
             peg->position.x = x;
             peg->position.y = y;
             peg->radius = props.pegRadius + (j * j * delta);
+            // peg->radius = props.pegRadius + log((j + 1) * (j + 1) * delta);
             peg->type = PEG;
 
             pegs.push_back(peg);

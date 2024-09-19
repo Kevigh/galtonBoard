@@ -5,15 +5,15 @@
 #include "BasicModel.h"
 
 
-void BasicModel::updateBall(Particle& ball, float dt, float t) const
+void BasicModel::updateBall(Particle& ball, double dt, double t) const
 {
     auto state = rungeKutta.rungeKutta4(dt, t, ball.position, ball.velocity, ball.force / ball.mass);
-    ball.position = *state.position;
-    ball.velocity = *state.velocity;
+    ball.position = state.position;
+    ball.velocity = state.velocity;
     ball.force = Vector2D();
 }
 
-void BasicModel::updatePeg(Particle& peg, float dt, float t) const
+void BasicModel::updatePeg(Particle& peg, double dt, double t) const
 {
 }
 

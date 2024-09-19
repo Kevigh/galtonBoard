@@ -32,7 +32,7 @@ RungeState RungeKutta::rungeKutta4(double dt, double t, const Vector2D& position
     Vector2D vel_t = velocity + (k21 + k22 * 2.0 + k23 * 2.0 + k24) / 6.0;
     
     return {
-        .position = &pos_t,
-        .velocity = &vel_t
+        .position = pos_t,
+        .velocity = vel_t
     };
 }

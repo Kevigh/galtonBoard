@@ -10,6 +10,31 @@ Cell* Mesh::getCell(int row, int col) const
     return cell;
 }
 
+std::vector<Cell*> Mesh::getCellAndNeighbours(int row, int col) const {
+    if (row < 0 || row >= rows || col < 0 || col >= cols) {
+        return {};
+    }
+
+    std::vector<Cell*> neighbours;
+
+    for (int i = -1; i <= 1; i++) {
+        for (int j = -1; j <= 1; j++) {
+            int newRow = row + i;
+            int newCol = col + j;
+
+            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
+                Cell* neighbour = getCell(newRow, newCol);
+                neighbours.push_back(neighbour);
+            }
+        }
+    }
+
+    Cell* cell = getCell(row, col);
+    neighbours.push_back(cell);
+
+    return neighbours;
+}
+
 void Mesh::addParticle(Particle* particle) const
 {
     const double x = particle->position.x;

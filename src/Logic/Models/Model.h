@@ -13,8 +13,8 @@ public:
     Model() = default;
     ~Model() = default;
 
-    virtual void updateBall(Particle& ball, float dt, float t) const = 0;
-    virtual void updatePeg(Particle& pegs, float dt, float t) const = 0;
+    virtual void updateBall(Particle& ball, double dt, double t) const = 0;
+    virtual void updatePeg(Particle& pegs, double dt, double t) const = 0;
     virtual void resolveCollision(Particle& ball, Particle& peg) = 0;
 };
 

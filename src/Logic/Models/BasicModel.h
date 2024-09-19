@@ -13,8 +13,8 @@ class BasicModel : public Model {
 public:
     RungeKutta rungeKutta{};
     
-    void updateBall(Particle& ball, float dt, float t) const override;
-    void updatePeg(Particle& peg, float dt, float t) const override;
+    void updateBall(Particle& ball, double dt, double t) const override;
+    void updatePeg(Particle& peg, double dt, double t) const override;
     void resolveCollision(Particle& ball, Particle& peg) override;
 
     BasicModel();

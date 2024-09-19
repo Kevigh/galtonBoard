@@ -23,6 +23,8 @@ public:
     int step{};
     int maxSteps{};
     int subSteps{};
+    int totalParticles{};
+    int totalPegs{};
 
     Vector2D gravity{};
     Range verticalConstrain{};
@@ -39,10 +41,13 @@ public:
     Exporter exporter{};
     Mesh mesh{};
 
+    std::string dataFilePath{};
+    bool exportData{};
+
     void initialize();
     void run();
     
-    void updateBodies(float t, float dtt) const;
+    void updateBodies(double t, double dtt) const;
     void validateCollisions();
     void validateConstraints();
     void applyForces() const;

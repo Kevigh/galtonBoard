@@ -39,7 +39,7 @@ std::vector<Particle*> Factory::createPegs(const double delta, const BoardProps&
     for (int i = 0; i < props.numberOfRows; i++) {
         for (int j = 0; j < props.numberOfColumns; j++) {
             auto peg = new Particle();
-            auto x = j * props.horizontalSpacing - j * j * delta;
+            auto x = j * props.horizontalSpacing - j * delta;
             auto y = i * props.verticalSpacing;
 
             if (i % 2 != 0) {

@@ -20,6 +20,7 @@ public:
     double height;
 
     Cell* getCell(int row, int col) const;
+    std::vector<Cell*> getCellAndNeighbours(int row, int col) const;
     void addParticle(Particle* particle) const;
     void addParticles(const std::vector<Particle*>& particles) const;
     void createCells(int rows, int cols, double width, double height);

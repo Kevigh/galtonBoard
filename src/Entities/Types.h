@@ -18,8 +18,8 @@ enum BoardType {
 
 struct RungeState
 {
-    Vector2D* position;
-    Vector2D* velocity;
+    Vector2D position;
+    Vector2D velocity;
 };
 
 #endif //TYPES_H

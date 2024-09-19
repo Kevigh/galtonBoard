@@ -13,12 +13,13 @@ class Exporter {
 public:
     std::vector<std::string> exportData{};
 
-    void addData(std::vector<Particle*> particles, std::vector<Particle*> pegs, Range xWidth, Range yWidth);
+    void addData(const std::vector<Particle *>& particles, const std::vector<Particle *>& pegs, int totalParticles, int totalPegs,
+                 Range xWidth, Range yWidth);
+
     void saveData(std::string filename);
 
-    void saveHistogram(const std::vector<Particle*>& particles, const std::string& filename, int bins, Range xRange);
+    void saveHistogram(const std::string &filename, const std::vector<Particle *> &particles, int bins, Range xRange);
 };
-
 
 
 #endif //EXPORTER_H

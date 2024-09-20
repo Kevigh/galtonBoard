@@ -14,9 +14,9 @@ void Engine::initialize() {
     const int rows = 10;
 
     ballProps = {
-        .radius = {pegRadius / 5, pegRadius / 5},
         .mass = 1,
         .damping = 1,
+        .radius = {pegRadius / 5, pegRadius / 5},
         .initialXVelocity = {-1, 1},
         .initialYVelocity = {-5, 0},
         .initialXPosition = {
@@ -26,8 +26,8 @@ void Engine::initialize() {
     };
 
     boardProps = {
-        .numberOfColumns = columns,
         .numberOfRows = rows,
+        .numberOfColumns = columns,
         .pegRadius = pegRadius / 1.3,
         .verticalSpacing = pegRadius * 2,
         .horizontalSpacing = pegRadius * 4,

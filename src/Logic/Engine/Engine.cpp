@@ -6,6 +6,7 @@
 
 #include "../../Utils/ParticleFactory.h"
 #include "../Models/BasicModel.h"
+#include <cmath>
 
 void Engine::initialize() {
     const double pegRadius = 10;

@@ -3,6 +3,7 @@
 //
 
 #include "Mesh.h"
+#include <cmath>
 
 Cell* Mesh::getCell(int row, int col) const
 {

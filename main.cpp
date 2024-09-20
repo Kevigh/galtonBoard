@@ -2,6 +2,7 @@
 #include "./src/Entities/Particle.h"
 #include "src/Logic/Engine/Engine.h"
 #include <chrono>
+#include <cmath>
 
 int main()
 {
@@ -12,7 +13,7 @@ int main()
     engine.subSteps = 10;
     engine.dt = 0.03;
     engine.damping = 0.6;
-    engine.dataFilePath = "/Users/niaggar/Developer/Results/GaltonBoard/";
+    engine.dataFilePath = "C:\\Users\\kevin\\OneDrive\\Documentos\\Galton Board\\results\\";
     engine.exportData = true;
     engine.totalParticles = 2500;
 

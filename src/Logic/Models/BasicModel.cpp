@@ -3,6 +3,7 @@
 //
 
 #include "BasicModel.h"
+#include <cmath>
 
 
 void BasicModel::updateBall(Particle& ball, double dt, double t) const

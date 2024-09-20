@@ -87,11 +87,23 @@ std::vector<Particle*> Factory::createPegsSize(const double delta, const BoardPr
                 x += props.horizontalSpacing / 2;
             }
 
+            int divisionOfColumns = j - props.numberOfColumns/2;
+
+            if (divisionOfColumns == 0) {
+                divisionOfColumns = 1;
+            }
+            else if(divisionOfColumns < 0) {
+                divisionOfColumns -= 1;
+            }
+            else {
+                divisionOfColumns += 1;
+            }
+
             peg->damping = props.pegDamping;
             peg->position.x = x;
             peg->position.y = y;
-            peg->radius = props.pegRadius + (j * j * delta);
-            // peg->radius = props.pegRadius + log((j + 1) * (j + 1) * delta);
+            // peg->radius = props.pegRadius + (j * j * delta);
+            peg->radius = props.pegRadius + log((divisionOfColumns) * divisionOfColumns * delta);
             peg->type = PEG;
 
             pegs.push_back(peg);

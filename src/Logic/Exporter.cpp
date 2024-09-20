@@ -6,6 +6,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <cmath>
 
 
 void Exporter::addData(const std::vector<Particle *>& particles, const std::vector<Particle *>& pegs, int totalParticles, int totalPegs, Range xWidth, Range yWidth) {
